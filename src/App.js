@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import configureStore from './utilities/store';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+// import { Route, Switch } from 'react-router-dom';
 
+import RenderRoutes from './utilities/routes/routeConfig';
+import routes from './utilities/routes';
+// import { getAdgroup } from './containers/Home/sagas';
+
+const initialState = {};
+const history =  createBrowserHistory();
+const store = configureStore(initialState, history);
+// homeSaga.map(store.runSaga);
+// store.runSaga(getAdgroup);
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <RenderRoutes routes={routes(store)} store={store} />
+      </ConnectedRouter>
+    </Provider>
   );
 }
 
