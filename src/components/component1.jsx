@@ -1,11 +1,11 @@
 import React from 'react';
-
+import styles from './styles.module.css';
 class Component1 extends React.Component {
     render() {
         const { children } = this.props;
         return(
             <div>
-                <div>Component1</div>
+                <div className={styles.header}>Component1</div>
                 {children}
             </div>
         );
