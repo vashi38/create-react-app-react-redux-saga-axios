@@ -1,13 +1,14 @@
 import Component1 from "../../components/component1";
 import Component2 from "../../components/component2";
 import Component3 from "../../components/component3";
+import Home from '../../containers/Home/index';
 import { getHooks } from '../hooks';
 export default function (store: any) {
     const { injectReducer, injectSagas } = getHooks(store)
     return [
         {
             path: '',
-            component: Component1,
+            component: Home,
             test1: 'shivanand',
             test2: 'sonnad',
             onEnter: () => {
@@ -15,7 +16,7 @@ export default function (store: any) {
                     import('../../containers/Home/reducer'),
                     import('../../containers/Home/sagas'),
                 ]);
-                loadFiles.then(([HomeReducer, HomeSagas]) => {
+                return loadFiles.then(([HomeReducer, HomeSagas]) => {
                     injectReducer('Home', HomeReducer.default);
                     injectSagas(HomeSagas.default);
                 })
@@ -23,7 +24,7 @@ export default function (store: any) {
             childRoutes: [
                 {
                     path: 'component1',
-                    component: Component2,
+                    component: Component1,
                     test1: 'shivanand',
                     test2: 'sonnad',
                     onEnter: () => {
@@ -32,7 +33,7 @@ export default function (store: any) {
                     childRoutes: [
                         {
                             path: 'component2',
-                            component: Component3,
+                            component: Component2,
                             test1: 'shivanand',
                             test2: 'sonnad',
                             onEnter: () => {
@@ -50,7 +51,7 @@ export default function (store: any) {
                                     childRoutes: [
                                         {
                                             path: 'component4',
-                                            component: Component3,
+                                            component: Component1,
                                             test1: 'shivanand',
                                             test2: 'sonnad',
                                         },

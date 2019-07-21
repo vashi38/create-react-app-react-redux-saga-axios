@@ -1,4 +1,5 @@
 import { fromJS } from "immutable";
+import { ACTION1 } from "./constants";
 
 const initialState = fromJS({
     key1: 'Shivanand',
@@ -8,7 +9,7 @@ const initialState = fromJS({
 
 export default function HomeReducer(state = initialState, action) {
     switch (action.type) {
-        case 'ACTION1': return state.set('key1', 'Changed');
+        case ACTION1: return state.set('key1', 'Changed');
         default: return state;
     }
 }

@@ -16,6 +16,7 @@
     "redux": "^4.0.4",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^1.0.5",
+    "reselect": "^4.0.0",
     "typescript": "^3.5.3"
   },
   "scripts": {
@@ -38,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0"
   }
 }

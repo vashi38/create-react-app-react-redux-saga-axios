@@ -12,8 +12,7 @@ import routes from './utilities/routes';
 const initialState = {};
 const history =  createBrowserHistory();
 const store = configureStore(initialState, history);
-// homeSaga.map(store.runSaga);
-// store.runSaga(getAdgroup);
+
 function App() {
   return (
     <Provider store={store}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 class Component1 extends React.Component {
     render() {
         const { children } = this.props;
