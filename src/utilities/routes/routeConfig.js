@@ -20,7 +20,6 @@ function ReactRouteConfig({ routes, store }) {
                                   if (typeof item.onEnter === 'function') {
                                       item.onEnter(store);
                                   }
-                                  console.log(routesArray);
                                   routesArray.push(item);
                                   if(item.childRoutes) {
                                       return (
