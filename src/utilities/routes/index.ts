@@ -11,14 +11,15 @@ export default function (store: any) {
             component: Home,
             test1: 'shivanand',
             test2: 'sonnad',
-            onEnter: () => {
+            onEnter: (cb: Function) => {
                 const loadFiles = Promise.all([
                     import('../../containers/Home/reducer'),
                     import('../../containers/Home/sagas'),
                 ]);
-                return loadFiles.then(([HomeReducer, HomeSagas]) => {
+                loadFiles.then(([HomeReducer, HomeSagas]) => {
                     injectReducer('Home', HomeReducer.default);
                     injectSagas(HomeSagas.default);
+                    cb();
                 })
             },
             childRoutes: [
@@ -27,8 +28,9 @@ export default function (store: any) {
                     component: Component1,
                     test1: 'shivanand',
                     test2: 'sonnad',
-                    onEnter: () => {
-                        console.log('here2')
+                    onEnter: (cb: Function) => {
+                        console.log('here2');
+                        cb();
                     },
                     childRoutes: [
                         {
@@ -36,8 +38,9 @@ export default function (store: any) {
                             component: Component2,
                             test1: 'shivanand',
                             test2: 'sonnad',
-                            onEnter: () => {
+                            onEnter: (cb: Function) => {
                                 console.log('here31')
+                                cb();
                             },
                             childRoutes: [
                                 {
@@ -45,8 +48,9 @@ export default function (store: any) {
                                     component: Component3,
                                     test1: 'shivanand',
                                     test2: 'sonnad',
-                                    onEnter: () => {
+                                    onEnter: (cb: Function) => {
                                         console.log('here32')
+                                        cb();
                                     },
                                     childRoutes: [
                                         {
@@ -60,7 +64,7 @@ export default function (store: any) {
                             ]
                         },
                     ]
-                },
+                }
             ]
         },
     ];

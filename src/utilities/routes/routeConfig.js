@@ -1,7 +1,40 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-function ReactRouteConfig({ routes, store }) {
+function preCondition(condition, store, WrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                initialized: false,
+            }
+        }
+
+        componentDidMount() {
+            if (condition && typeof condition === 'function') {
+                condition(this.initialize);
+            } else {
+                this.initialize();
+            }
+        }
+
+        initialize = () => {
+            this.setState({
+                initialized: true,
+            });
+        }
+    
+        render() {
+            const{ initialized } = this.state;
+            if (!initialized) return null;
+            return (
+                <WrappedComponent {...this.props}> {this.props.children} </WrappedComponent>
+            );
+        }
+    }
+ }
+
+function ReactRouteConfig({ routes, store, base='/' }) {
     function getPath(item, path) {
         return `${path}/${item.path}`.replace(/\/\//g, '/');
     }
@@ -17,18 +50,16 @@ function ReactRouteConfig({ routes, store }) {
                           render={
                               (props) => {
                                   const { match } = props;
-                                  if (typeof item.onEnter === 'function') {
-                                      item.onEnter(store);
-                                  }
                                   routesArray.push(item);
+                                  const NewComponent = preCondition(item.onEnter, store, item.component);
                                   if(item.childRoutes) {
                                       return (
-                                          <item.component {...props} route={item} store={store} routesArray={routesArray} >
-                                              {renderRoutes(item.childRoutes, match.path, routesArray)}
-                                          </item.component>
+                                            <NewComponent {...props} route={item} store={store} routesArray={routesArray} >
+                                                {renderRoutes(item.childRoutes, match.path, routesArray)}
+                                            </NewComponent>
                                       );
                                   }
-                                  return <item.component {...props} route={item} store={store} routesArray={routesArray} />
+                                  return <NewComponent {...props} route={item} store={store} routesArray={routesArray} />
                               }
                           }
                         > 
@@ -38,7 +69,7 @@ function ReactRouteConfig({ routes, store }) {
             </div>
         );
     }
-    return renderRoutes(routes, '/', []);
+    return renderRoutes(routes, base, []);
 }
 
 export default ReactRouteConfig;
