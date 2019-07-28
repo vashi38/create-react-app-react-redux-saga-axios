@@ -6,7 +6,9 @@ import { OPEN_WEATHER_APP_API_KEY } from '../../constants';
 import { getCityListDone, getWeatherFromCityIdDone } from './actions';
 
 function* doGetCityList(action) {
-    const result = yield call(HomeService.GetCityList.get);
+    const result = yield call(HomeService.GetCityList.get, {
+        q: action.query,
+    });
     if (result && result.data && Array.isArray(result.data)) {
         yield put(getCityListDone(result.data.slice(0,99)));
     } else {

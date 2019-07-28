@@ -7,6 +7,7 @@ function preCondition(condition, store, WrappedComponent) {
             super(props);
             this.state = {
                 initialized: false,
+                component: WrappedComponent,
             }
         }
 
@@ -14,21 +15,22 @@ function preCondition(condition, store, WrappedComponent) {
             if (condition && typeof condition === 'function') {
                 condition(this.initialize);
             } else {
-                this.initialize();
+                this.initialize(WrappedComponent);
             }
         }
 
-        initialize = () => {
+        initialize = (component = WrappedComponent) => {
             this.setState({
                 initialized: true,
+                component,
             });
         }
     
         render() {
-            const{ initialized } = this.state;
+            const{ initialized, component: Component } = this.state;
             if (!initialized) return null;
             return (
-                <WrappedComponent {...this.props}> {this.props.children} </WrappedComponent>
+                <Component {...this.props}> {this.props.children} </Component>
             );
         }
     }

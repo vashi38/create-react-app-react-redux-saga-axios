@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    & > div {
+        width: 60%;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #f0f0f0;
+        justify-content: center;
+    }
+    & .selectWrapper {
+        width: 50%;
+        margin-left: 20px;
+    }
+}
