@@ -1,3 +1,84 @@
+## Steps to run
+1. clone the repository
+2. open terminal in the cloned repository
+3. run following commands
+    a. npm install
+    b. npm install -json-server -g
+    c. JSON server will start on port 3000
+        json-server --watch db.json
+    d. Project try to start on port 3000 but port 3000 already used so will ask to start on 3001
+        npm start
+4. open the link in browser.
+    localhost:3001
+
+
+## Development Info
+
+This project is built on create-react-app
+following features available in this project:
+1. Store
+2. redux
+3. saga
+4. async injection of reducer to store
+5. async injection of saga to store
+6. axios
+7. centralised routes
+8. css module to import css styles as css module.
+9. Sample project to select the city from the list.
+
+# Store
+In this project Store is configured and can see the configuration in following path
+/src/utilities/store/index.js
+
+# Redux
+In this project Redux is configured and can see the configuration in following path
+/src/utilities/redux/index.js
+
+# saga
+In this project Saga is configued and see the configuration in store config.
+
+# async injection of reducer to store
+In this project async injection of reducers is supported. can see the config in the following path
+/src/utilities/hooks/index.js
+
+# async injection of saga to store
+In this project async injection of sagas is supported. can see the config in the following path
+/src/utilities/hooks/index.js
+
+# axios
+In this project created configuration for api calls and axios is used to call api. You just need to call the api service factory which will return the function will call defualt methods(GET, PUT, DELETE, POST). Can see the example for more details.
+
+# Centralised routes
+This is the main feature of this project. Here we are supporting centralised routing. You can create centralised routes easily. can see the example for more details. 
+
+Supported feautres:
+1. we can inject reducer when route matches
+2. we can inject sagas when route matches
+3. we can render decide the component to be mounted when the route matches.
+4. we support nested child routes with easy configs.
+5. we can pass extra keys in the route so that can be used in the components props.
+6. we get the matched routes array as a props to the component. 
+
+# css module to import css styles as css module
+
+Here we support the import css files as module and can use the class names with file name
+
+example:
+
+import styles from './styles.module.css'
+
+<div className={styles.container}>container class is applied to this div and its local class can not be used globally.</div>
+
+# Sample project to select the city from the list
+Here provided one sample project to understand all above features.
+structure:
+on base route Home container is mounted. You will get the container at following path:
+/src/containers/Home/index.js
+In this folder you will get reducer, saga, selector, constants, actions.
+
+
+Can mail me on shivanandssonnad@gmail.com if you have any doubt or want to understand the structure more. Thanks for reading.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
