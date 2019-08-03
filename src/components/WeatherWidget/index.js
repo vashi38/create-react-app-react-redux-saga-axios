@@ -26,7 +26,7 @@ class WeatherWidget extends Component {
         super(props);
         this.state = {
             activeBtn: 'temperature',
-            selectedUnit: 'K',
+            selectedUnit: 'C',
         };
     }
 

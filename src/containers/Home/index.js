@@ -34,8 +34,9 @@ class Home extends Component {
 
     initSelect = () => {
         const { cityList } = this.props;
+        const { selectedCity } = this.state;
         const list = this.getCitySelectOptions(cityList);
-        if (list && list.length) {
+        if (list && list.length && selectedCity && !selectedCity.value) {
             this.setState({
                 selectedCity: list[0],
             });
