@@ -3,7 +3,7 @@ import { LOCATION_CHANGE } from '../../utilities/constants';
 import { GET_CITY_LIST, GET_WEATHER } from './constants';
 import HomeService from './services';
 import { OPEN_WEATHER_APP_API_KEY } from '../../constants';
-import { getCityListDone, getWeatherFromCityIdDone } from './actions';
+import { getCityListDone, getWeatherFromCityIdDone, setSelectedCity } from './actions';
 
 function* doGetCityList(action) {
     const result = yield call(HomeService.GetCityList.get, {
@@ -34,6 +34,7 @@ function* doGetWeatherFromCityId(action) {
     });
     if (result && result.data && Array.isArray(result.data.list)) {
         yield put(getWeatherFromCityIdDone(result.data.list));
+        yield put(setSelectedCity(result.data.city));
     } else {
         yield put(getWeatherFromCityIdDone([]));
     }

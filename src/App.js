@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import configureStore from './utilities/store';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
+import './utilities/css/global.scss';
 // import { Route, Switch } from 'react-router-dom';
 
 import RenderRoutes from './utilities/routes/routeConfig';

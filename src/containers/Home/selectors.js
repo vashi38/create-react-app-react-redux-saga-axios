@@ -22,9 +22,15 @@ const selectWeatherData = () => createSelector(
     (home) => home ? home.get('weatherResponse') : {}
 );
 
+const selectSelectedCity = () => createSelector(
+    HomeState(),
+    (home) => home ? home.get('selectedCity') : {}
+);
+
 export {
     selectLoadingCityList,
     selectCityList,
     selectLoadingWeather,
     selectWeatherData,
+    selectSelectedCity,
 };
