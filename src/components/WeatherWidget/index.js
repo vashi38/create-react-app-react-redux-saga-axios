@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styles from './styles.module.scss';
 import Radio from '../Radio';
 import moment from 'moment';
-
+import WIND from '../../assets/wind.svg';
+import HUMIDITY from '../../assets/humidity.png';
 const options = [
     {
         label: 'Temperature',
@@ -50,18 +51,22 @@ class WeatherWidget extends Component {
                 temperature: prevValue.temperature || 0,
                 pressure: prevValue.pressure || 0,
                 humidity: prevValue.humidity || 0,
+                windSpeed: (prevValue.wind && prevValue.wind.speed)|| (prevValue.windSpeed && prevValue.windSpeed) || 0,
             }
             return {
                 temperature: value.temperature + currentValue.temperature,
                 pressure: value.pressure + currentValue.pressure,
                 humidity: value.humidity + currentValue.humidity,
+                windSpeed: value.windSpeed + currentValue.wind.speed,
             };
         });
+
         const listLength = (weatherData && weatherData.length) || 1
         return {
             temperature: totalWeatherData.temperature / listLength,
             pressure: totalWeatherData.pressure / listLength,
             humidity: totalWeatherData.humidity / listLength,
+            windSpeed: totalWeatherData.windSpeed / listLength,
         }
     }
 
@@ -85,6 +90,10 @@ class WeatherWidget extends Component {
 
     getWind = (item) => {
         return item && item.wind && item.wind.speed;
+    }
+
+    getWindDegree = (item) => {
+        return item && item.wind && item.wind.degree;
     }
 
     getTemperature = (temperature) => {
@@ -115,8 +124,10 @@ class WeatherWidget extends Component {
         }
     }
 
-    renderBreakDownDetails = (item) => {
+    renderBreakDownDetails = (item, averageDetails) => {
         const { activeBtn } = this.state;
+        const averageSpeed = averageDetails && averageDetails.windSpeed;
+        const speed = this.getWind(item) / averageSpeed;
         if (activeBtn === 'temperature') {
             return (
                 <React.Fragment>
@@ -132,8 +143,8 @@ class WeatherWidget extends Component {
         if (activeBtn === 'humidity') {
             return (
                 <React.Fragment>
-                    <div className={styles.subHeader}>
-                        Humidity
+                    <div className={styles.imageWrapper}>
+                        <img src={HUMIDITY} width="100%" height="100%" alt="Humidity" />
                     </div>
                     <div className={styles.subHeader}>
                         {`${this.getHumidity(item)} %`}
@@ -144,8 +155,8 @@ class WeatherWidget extends Component {
         if (activeBtn === 'wind') {
             return (
                 <React.Fragment>
-                    <div className={styles.subHeader}>
-                        Speed
+                    <div className={styles.imageWrapper}>
+                        <img src={WIND} style={{ transform: `rotateZ(${this.getWindDegree(item)}deg) scale(${speed > 1 ? 1 : speed})`}} width="100%" height="100%" alt="wind direction" />
                     </div>
                     <div className={styles.subHeader}>
                         {`${this.getWind(item)} Km/h`}
@@ -155,7 +166,7 @@ class WeatherWidget extends Component {
         }
     }
 
-    renderBrackDownWidget = (item) => {
+    renderBrackDownWidget = (item, averageDetails) => {
         if (!item) return null;
         const date = moment(item.date);
         const time = date.format('h A');
@@ -164,7 +175,7 @@ class WeatherWidget extends Component {
             <div className={styles.brakdownWidgetWrapper}>
                 <div className={styles.subHeader}>{day}</div>
                 <div className={styles.subHeader}>{time}</div>
-                {this.renderBreakDownDetails(item)}
+                {this.renderBreakDownDetails(item, averageDetails)}
             </div>
         )
     }
@@ -196,7 +207,7 @@ class WeatherWidget extends Component {
                     </div>
                 </div>
                 <div className={styles.breakDownsContainer}>
-                    {weatherData && weatherData.map(item => this.renderBrackDownWidget(item))}
+                    {weatherData && weatherData.map(item => this.renderBrackDownWidget(item, averageDetails))}
                 </div>
             </div>
         )
