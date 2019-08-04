@@ -11,6 +11,9 @@
     localhost:3000
 
 
+## Hosted on firebase
+live link: https://weatherapp-6ce0c.firebaseapp.com/
+
 ## Development Info
 
 This project is built on create-react-app
