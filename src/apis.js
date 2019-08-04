@@ -17,7 +17,6 @@ export const sampleTestUrl = 'https://reqres.in/api/users/:page';
 export const weatherAppApi = 'https://api.openweathermap.org/data/2.5/forecast';
 export const getCityList = 'http://localhost:3004/list';
 
-
 export default {
     sampleTestUrl,
     weatherAppApi,
