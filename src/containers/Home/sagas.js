@@ -8,6 +8,7 @@ import { getCityListDone, getWeatherFromCityIdDone, setSelectedCity } from './ac
 function* doGetCityList(action) {
     const result = yield call(HomeService.GetCityList.get, {
         q: action.query,
+        _limit: 15,
     });
     if (result && result.data && Array.isArray(result.data)) {
         yield put(getCityListDone(result.data.slice(0,99)));
