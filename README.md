@@ -3,13 +3,12 @@
 2. open terminal in the cloned repository
 3. run following commands
     1. npm install
-    2. npm install -json-server -g
-    3. JSON server will start on port 3004 <br/>
-        json-server --watch db.json --port 3004
-    4. Project try to start on port 3000 but port 3000 already used so will ask to start on 3001 <br/>
+    2. node functions/index.js
+    3. server will start on port 3004 <br/>
+    4. Project try to start on port 3000 <br/>
         npm start
 4. open the link in browser.
-    localhost:3001
+    localhost:3000
 
 
 ## Development Info
