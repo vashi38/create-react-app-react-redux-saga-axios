@@ -1,36 +1,18 @@
-import { GET_CITY_LIST, GET_CITY_LIST_DONE, GET_WEATHER, GET_WEATHER_DONE, SET_SELECTED_CITY } from "./constants";
+import { INITIALIZE_STATE, SELECT_SHOW } from "./constants";
 
-export function getCityList(query) {
+export function initializeState(shows) {
     return {
-        type: GET_CITY_LIST,
-        query,
+        type: INITIALIZE_STATE,
+        shows,
     }
 }
 
-export function getCityListDone(data) {
+export function selectShow(selectedShowId, currentItem = null) {
     return {
-        type: GET_CITY_LIST_DONE,
-        data,
+        type: SELECT_SHOW,
+        currentItem,
+        selectedShowId,
     }
 }
 
-export function getWeatherFromCityId(id) {
-    return {
-        type: GET_WEATHER,
-        id,
-    }
-}
 
-export function getWeatherFromCityIdDone(data) {
-    return {
-        type: GET_WEATHER_DONE,
-        data,
-    }
-}
-
-export function setSelectedCity(city) {
-    return {
-        type:SET_SELECTED_CITY,
-        city,
-    }
-}

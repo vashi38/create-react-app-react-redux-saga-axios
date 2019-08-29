@@ -1,0 +1,15 @@
+.cardContainer {
+    width: 240px;
+    height: 300px;
+    padding: 20px;
+    border: solid 1px #F0F0F0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 20px;
+    cursor: pointer;
+     &:hover {
+        box-shadow: 5px 5px #F0F0F0;
+        transform: scale(1.01);
+     }
+}

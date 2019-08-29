@@ -2,35 +2,23 @@ import { createSelector } from 'reselect';
 
 const HomeState = () => (state) => state && state['Home'];
 
-const selectLoadingCityList = () => createSelector(
+const selectShows = () => createSelector(
     HomeState(),
-    (home) => home ? home.get('loadingCityList') : false
+    (home) => home ? home.get('shows') : []
 );
 
-const selectCityList = () => createSelector(
+const selectSelectedCurrentShow = () => createSelector(
     HomeState(),
-    (home) => home ? home.get('cityList') : []
+    (home) => home ? home.get('currentSelectedShow') : {}
 );
 
-const selectLoadingWeather = () => createSelector(
+const selectSelectedCurrentShowId = () => createSelector(
     HomeState(),
-    (home) => home ? home.get('loadingWeatherData') : false
-);
-
-const selectWeatherData = () => createSelector(
-    HomeState(),
-    (home) => home ? home.get('weatherResponse') : {}
-);
-
-const selectSelectedCity = () => createSelector(
-    HomeState(),
-    (home) => home ? home.get('selectedCity') : {}
+    (home) => home ? home.get('currentSelectedShowId') : 0
 );
 
 export {
-    selectLoadingCityList,
-    selectCityList,
-    selectLoadingWeather,
-    selectWeatherData,
-    selectSelectedCity,
+    selectShows,
+    selectSelectedCurrentShow,
+    selectSelectedCurrentShowId,
 };

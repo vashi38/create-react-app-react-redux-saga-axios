@@ -1,25 +1,44 @@
 import { fromJS } from "immutable";
-import { GET_CITY_LIST_DONE, GET_WEATHER, GET_WEATHER_DONE, GET_CITY_LIST, SET_SELECTED_CITY } from "./constants";
+import { INITIALIZE_STATE, SELECT_SHOW } from "./constants";
 
 const initialState = fromJS({
-    loadingCityList: false,
-    cityList: [],
-    loadingWeatherData: false,
-    weatherResponse: {},
-    selectedCity: {},
+    shows: [],
+    currentSelectedShow: {},
+    currentSelectedShowId: 0,
 });
 
 export default function HomeReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_CITY_LIST: return state.set('loadingCityList', true)
-                                        .set('cityList', []);
-        case GET_CITY_LIST_DONE: return state.set('loadingCityList', false)
-                                            .set('cityList', action.data);
-        case GET_WEATHER: return state.set('loadingWeatherData', true)
-                                        .set('weatherResponse', {});
-        case GET_WEATHER_DONE: return state.set('loadingWeatherData', false)
-                                            .set('weatherResponse', action.data);
-        case SET_SELECTED_CITY: return state.set('selectedCity', action.city);
+        case INITIALIZE_STATE: {
+            return state.set('shows', action.shows)
+                        .set('currentSelectedShow', action.shows[0])
+                        .set('currentSelectedShowId', action.shows[0].id);
+        }
+        case SELECT_SHOW: {
+            const showsFromState = state.get('shows');
+            const currentSelectedShowIdFromState = state.get('currentSelectedShowId');
+            const currentSelectedShowIndexFromState = showsFromState.findIndex(show => show.id === currentSelectedShowIdFromState);
+
+            const showsWithoutCurrentShow = [
+                ...showsFromState.slice(0, currentSelectedShowIndexFromState),
+                ...showsFromState.slice(currentSelectedShowIndexFromState + 1),
+            ];
+            const updatedShowsList = [
+                ...showsWithoutCurrentShow,
+                action.currentItem || showsFromState[currentSelectedShowIndexFromState]
+            ];
+
+            updatedShowsList.sort((a, b) => a.id - b.id);
+            const selectedShowIndexFromShows = updatedShowsList && updatedShowsList.findIndex(item => item.id === action.selectedShowId);
+            
+            console.log(showsWithoutCurrentShow, updatedShowsList, selectedShowIndexFromShows);
+            if (selectedShowIndexFromShows >= 0) {
+                return state.set('shows', updatedShowsList)
+                        .set('currentSelectedShow', updatedShowsList[selectedShowIndexFromShows])
+                        .set('currentSelectedShowId', updatedShowsList[selectedShowIndexFromShows].id);
+            }
+            return state;
+        }
         default: return state;
     }
 }
