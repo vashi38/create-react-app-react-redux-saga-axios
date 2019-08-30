@@ -17,7 +17,7 @@ class Show {
         return this._id;
     }
 
-    get seats() {
+    get lines() {
         if (Array.isArray(this._lines)) {
             return this._lines;
         }
@@ -53,6 +53,17 @@ class Show {
             return this._lines.map(each => ({
                 code: each.code,
                 bookedSeats: onlyCode ? each.getBookedSeats().map(item => item.code) : each.getBookedSeats(),
+            }));
+        } catch (e) {
+            return [];
+        }
+    }
+
+    getSelectedSeats(onlyCode = true) {
+        try {
+            return this._lines.map(each => ({
+                code: each.code,
+                selectedSeats: onlyCode ? each.getSelectedSeats().map(item => item.code) : each.getSelectedSeats(),
             }));
         } catch (e) {
             return [];

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const HomeState = () => (state) => state && state['Home'];
+const HomeState = () => (state) => state && state['home'];
 
 const selectShows = () => createSelector(
     HomeState(),
@@ -17,8 +17,14 @@ const selectSelectedCurrentShowId = () => createSelector(
     (home) => home ? home.get('currentSelectedShowId') : 0
 );
 
+const selectBreadcrumbs = () => createSelector(
+    HomeState(),
+    (home) => home ? home.get('breadcrumbs') : []
+)
+
 export {
     selectShows,
     selectSelectedCurrentShow,
     selectSelectedCurrentShowId,
+    selectBreadcrumbs,
 };

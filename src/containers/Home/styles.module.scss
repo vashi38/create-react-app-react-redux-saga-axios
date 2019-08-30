@@ -3,12 +3,6 @@
     margin: auto;
 }
 
-.cardsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
 @media (max-width: 450px) {
     .container {
         width: 100%;

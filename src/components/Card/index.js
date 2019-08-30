@@ -15,12 +15,12 @@ class Card extends Component {
                     <h3>{name}</h3>
                 </div>
             </div>
-        )
+        );
     }
 }
 
 Card.defaultProps = {
-    image: 'https://placeimg.com/200/200/any',
+    image: 'https://placeimg.com/201/201/any',
 }
 
 export default Card;

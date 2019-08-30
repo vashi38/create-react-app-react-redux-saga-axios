@@ -12,58 +12,52 @@ export default function (store: any) {
                 const loadFiles = Promise.all([
                     import('../../containers/Home/reducer'),
                     import('../../containers/Home/sagas'),
-                    import ('../../containers/Home/index'),
+                    import ('../../containers/Home'),
                 ]);
                 loadFiles.then(([HomeReducer, HomeSagas, HomeComponent]) => {
-                    injectReducer('Home', HomeReducer.default);
+                    injectReducer('home', HomeReducer.default);
                     injectSagas(HomeSagas.default);
                     cb(HomeComponent.default);
                 })
             },
-            // childRoutes: [
-            //     {
-            //         path: 'component1',
-            //         component: Component1,
-            //         test1: 'shivanand',
-            //         test2: 'sonnad',
-            //         onEnter: (cb: Function) => {
-            //             console.log('here2');
-            //             cb();
-            //         },
-            //         childRoutes: [
-            //             {
-            //                 path: 'component2',
-            //                 component: Component2,
-            //                 test1: 'shivanand',
-            //                 test2: 'sonnad',
-            //                 onEnter: (cb: Function) => {
-            //                     console.log('here31')
-            //                     cb();
-            //                 },
-            //                 childRoutes: [
-            //                     {
-            //                         path: 'component3',
-            //                         component: Component3,
-            //                         test1: 'shivanand',
-            //                         test2: 'sonnad',
-            //                         onEnter: (cb: Function) => {
-            //                             console.log('here32')
-            //                             cb();
-            //                         },
-            //                         childRoutes: [
-            //                             {
-            //                                 path: 'component4',
-            //                                 component: Component1,
-            //                                 test1: 'shivanand',
-            //                                 test2: 'sonnad',
-            //                             },
-            //                         ]
-            //                     },
-            //                 ]
-            //             },
-            //         ]
-            //     }
-            // ]
+            childRoutes: [
+                {
+                    path: 'shows',
+                    exact: true,
+                    onEnter: (cb: Function) => {
+                        const loadFiles = Promise.all([
+                            import ('../../containers/Shows'),
+                        ]);
+                        loadFiles.then(([ShowsComponent]) => {
+                            cb(ShowsComponent.default);
+                        })
+                    }
+                },
+                {
+                    path: 'shows/:showId',
+                    exact: true,
+                    onEnter: (cb: Function) => {
+                        const loadFiles = Promise.all([
+                            import ('../../containers/Show/index'),
+                        ]);
+                        loadFiles.then(([ShowComponent]) => {
+                            cb(ShowComponent.default);
+                        })
+                    },
+                },
+                {
+                    path: 'shows/:showId/summary',
+                    exact: true,
+                    onEnter: (cb: Function) => {
+                        const loadFiles = Promise.all([
+                            import ('../../containers/Summary/index'),
+                        ]);
+                        loadFiles.then(([ShowComponent]) => {
+                            cb(ShowComponent.default);
+                        })
+                    },
+                }
+            ]
         },
     ];
 }

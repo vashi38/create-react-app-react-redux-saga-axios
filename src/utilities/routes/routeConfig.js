@@ -44,29 +44,32 @@ function ReactRouteConfig({ routes, store, base='/' }) {
         return (
             <div>
                 <Switch>
-                    {routes.map((item, index) => (
-                        <Route
-                          key={index} 
-                          path={getPath(item, path)} 
-                          exact={!!item.exact}
-                          render={
-                              (props) => {
-                                  const { match } = props;
-                                  routesArray.push(item);
-                                  const NewComponent = preCondition(item.onEnter, store, item.component);
-                                  if(item.childRoutes) {
-                                      return (
-                                            <NewComponent {...props} route={item} store={store} routesArray={routesArray} >
-                                                {renderRoutes(item.childRoutes, match.path, routesArray)}
-                                            </NewComponent>
-                                      );
+                    {routes.map((item, index) => {
+                        return (
+                            <Route
+                              key={index} 
+                              path={getPath(item, path)} 
+                              exact={!!item.exact}
+                              render={
+                                  (props) => {
+                                      const { match } = props;
+                                      routesArray.push(item);
+                                      const NewComponent = preCondition(item.onEnter, store, item.component);
+                                      if(item.childRoutes) {
+                                          console.log('showsFromState');
+                                          return (
+                                                <NewComponent {...props} route={item} store={store} routesArray={routesArray} >
+                                                    {renderRoutes(item.childRoutes, match.path, routesArray)}
+                                                </NewComponent>
+                                          );
+                                      }
+                                      return <NewComponent {...props} route={item} store={store} routesArray={routesArray} />
                                   }
-                                  return <NewComponent {...props} route={item} store={store} routesArray={routesArray} />
                               }
-                          }
-                        > 
-                        </Route>
-                    ))}
+                            > 
+                            </Route>
+                        )
+                    })}
                 </Switch>
             </div>
         );

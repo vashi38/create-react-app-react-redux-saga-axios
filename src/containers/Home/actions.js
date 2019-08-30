@@ -1,4 +1,4 @@
-import { INITIALIZE_STATE, SELECT_SHOW } from "./constants";
+import { INITIALIZE_STATE, SELECT_SHOW, SET_BREADCRUMBS } from "./constants";
 
 export function initializeState(shows) {
     return {
@@ -15,4 +15,9 @@ export function selectShow(selectedShowId, currentItem = null) {
     }
 }
 
-
+export function setBreadcrumbs(list) {
+    return {
+        type: SET_BREADCRUMBS,
+        list,
+    }
+}

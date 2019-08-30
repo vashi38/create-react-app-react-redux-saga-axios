@@ -40,6 +40,14 @@ class Line {
             return [];
         }
     }
+
+    getSelectedSeats() {
+        try {
+            return this._seats.filter(each => each.selected);
+        } catch (e) {
+            return [];
+        }
+    }
 }
 
 export default Line;
