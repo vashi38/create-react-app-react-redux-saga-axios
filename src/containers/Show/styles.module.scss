@@ -1,13 +1,50 @@
 .rowsWrapper {
     overflow: auto;
+    margin: 20px 0px;
+    padding: 10px;
 }
 
 .buttonWrapper {
     & > button {
         float: right;
         padding: 10px;
-        width: 70px;
+        width: 140px;
         border-radius: 10px;
         margin-right: 10px;
     }
+}
+
+.screenContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: lightgray;
+    margin-bottom: 20px;
+}
+
+.screen {
+    border: 1px solid lightgray;
+    width: 60%;
+}
+
+.roomContainer {
+    width: 80%;
+}
+
+.showContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonContainer {
+    width: 100%;
+}
+
+.showNameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }

@@ -1,14 +1,14 @@
-const Tax = require('./Tax');
-const data = require('../data');
+import Tax from './Tax';
+import { Tax as _Tax } from '../containers/Home/data';
 
 let tax = null;
 describe('Test for Tax class', () => {
     beforeEach(() => {
-        tax = new Tax(data.Tax.serviceTax, data.Tax.swachhBharatCess, data.Tax.krishiKalyanCess);
+        tax = new Tax(_Tax.serviceTax, _Tax.swachhBharatCess, _Tax.krishiKalyanCess);
     })
 
     it('tax class should initialised correctly', () => {
-        const { serviceTax, swachhBharatCess, krishiKalyanCess } = data.Tax;
+        const { serviceTax, swachhBharatCess, krishiKalyanCess } = _Tax;
         expect(tax.serviceTax).toBe(serviceTax);
         expect(tax.swachhBharatCess).toBe(swachhBharatCess);
         expect(tax.krishiKalyanCess).toBe(krishiKalyanCess);

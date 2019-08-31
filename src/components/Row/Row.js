@@ -13,9 +13,12 @@ class Row extends Component {
         const { row } = this.props;
         if (!row) return <div> wrong row</div>;
         return (
-            <div className={styles.rowWrapper}>
-                <h3>{row.code}</h3>
-                {row.seats.map(item => <Seat seat={item} />)}
+            <div className={styles.container}>
+                <span className={styles.lineDescription}>Line: {row.code} Price: {parseFloat(row.price).toFixed(2)}</span>
+                <hr />
+                <div className={styles.rowWrapper}>
+                    {row.seats.map((item, index) => <Seat key={index} seat={item} />)}
+                </div>
             </div>
         )
     }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -9,11 +9,9 @@ import {
 import Card from '../../components/Card';
 
 import styles from './styles.module.scss';
-import { setBreadcrumbs } from '../Home/actions';
-import ShowsBreadcrumb from '../Breadcrumbs/ShowsBreadcrumb';
 
 
-class ShowsComponent extends Component {
+class ShowsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,21 +19,30 @@ class ShowsComponent extends Component {
     }
     
     componentDidMount() {
-        this.props.setBreadcrumbs([ShowsBreadcrumb])
+        const { shows } = this.props;
+        try {
+            shows.map(each => each.deSelectAllSeats())
+        } catch (e) {
+            console.log('error', e);
+        }
     }
 
     handleChangeShow = (id) => {
-        const { match } = this.props;
-        this.props.dispatch(push(`${match.url}/${id}`));
+        const { route } = this.props;
+        this.props.dispatch(push(`/${route.path}/${id}`));
     }
 
     render() {
         const { shows } = this.props;
         return (
             <div>
+                <div className={styles.showsTitleContainer}>
+                    <strong>Shows</strong>
+                </div>
                 <div className={styles.cardsContainer}>
-                    {shows.map(item => (
+                    {shows.map((item, index) => (
                         <Card 
+                            key={index}
                             id={item.id} 
                             name={item.name}
                             onClick={this.handleChangeShow} 
@@ -53,9 +60,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
     return {
-        setBreadcrumbs: (list) => {
-            dispatch(setBreadcrumbs(list));
-        },
         dispatch,
     };
 }

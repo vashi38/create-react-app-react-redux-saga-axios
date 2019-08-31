@@ -9,10 +9,8 @@ import {
     selectSelectedCurrentShowId,
 } from '../Home/selectors';
 import {
-    initializeState, selectShow, setBreadcrumbs,
+    initializeState, selectShow,
 } from '../Home/actions';
-import ShowsBreadcrumb from '../Breadcrumbs/ShowsBreadcrumb';
-import ShowBreadcrumb from '../Breadcrumbs/ShowBreadcrumb';
 import Row from '../../components/Row/Row';
 
 import styles from './styles.module.scss';
@@ -25,15 +23,14 @@ class ShowHome extends Component {
     }
 
     componentDidMount() {
-        const { match: { params }, currentSelectedShow } = this.props;
+        const { params, currentSelectedShow } = this.props;
         const showId = parseInt(params.showId, 10);
         this.props.handleChangeSelectedShow(showId, currentSelectedShow);
-        this.props.setBreadcrumbs([ShowsBreadcrumb, ShowBreadcrumb])
     }
 
     onViewSummary = () => {
-        const { match } = this.props;
-        this.props.dispatch(push(`${match.url}/summary`));
+        const { params } = this.props;
+        this.props.dispatch(push(`/shows/${params.showId}/summary`));
     }
 
     onCancel = () => {
@@ -53,13 +50,22 @@ class ShowHome extends Component {
         const { currentSelectedShow } = this.props;
         const rows = currentSelectedShow && currentSelectedShow.lines;
         return (
-            <div>
-                <div className={styles.rowsWrapper}>
-                {
-                    rows.map(row => <Row row={row} />)
-                }
+            <div className={styles.showContainer}>
+                <div className={styles.roomContainer}>
+                    <div className={styles.showNameContainer}>
+                        <strong>{currentSelectedShow && currentSelectedShow.name}</strong>
+                    </div>
+                    <div className={styles.rowsWrapper}>
+                    {
+                        rows && rows.map && rows.map((row, index) => <Row key={index} row={row} />)
+                    }
+                    </div>
+                    <div className={styles.screenContainer}>
+                        <div className={styles.screen}></div>
+                        <strong>screen this side</strong>
+                    </div>
                 </div>
-                <div>
+                <div className={styles.buttonContainer}>
                     {this.renderButtons()}
                 </div>
             </div>
@@ -79,9 +85,6 @@ function mapDispatchToProps(dispatch) {
         },
         handleChangeSelectedShow: (selectedShowId, currentItem = null) => {
             dispatch(selectShow(selectedShowId, currentItem));
-        },
-        setBreadcrumbs: (list) => {
-            dispatch(setBreadcrumbs(list));
         },
         dispatch,
     };

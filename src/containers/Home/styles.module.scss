@@ -1,6 +1,17 @@
 .container {
     width: 70%;
     margin: auto;
+    padding: 30px;
+    border: 1px solid #F0F0F0;
+}
+
+.routeComponentContainer {
+    padding-top: 30px;
+}
+
+.appHeaderContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 450px) {

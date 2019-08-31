@@ -24,6 +24,10 @@ class Show {
         return [];
     }
 
+    get tax() {
+        return this._tax;
+    }
+
     getLines(lines) {
         try {
             return Object.keys(lines).map(code => {
@@ -62,11 +66,19 @@ class Show {
     getSelectedSeats(onlyCode = true) {
         try {
             return this._lines.map(each => ({
-                code: each.code,
+                line: each,
                 selectedSeats: onlyCode ? each.getSelectedSeats().map(item => item.code) : each.getSelectedSeats(),
             }));
         } catch (e) {
             return [];
+        }
+    }
+    
+    deSelectAllSeats() {
+        try {
+            this._lines.map(each => each.deSelectAllSeats())
+        } catch(e) {
+            console.log('Error', e);
         }
     }
 

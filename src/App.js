@@ -1,25 +1,43 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from './utilities/store';
-import { createBrowserHistory } from 'history';
-import { ConnectedRouter } from 'connected-react-router';
+import {
+  applyRouterMiddleware,
+  Router,
+} from 'react-router';
 import './utilities/css/global.scss';
-// import { Route, Switch } from 'react-router-dom';
 
-import RenderRoutes from './utilities/routes/routeConfig';
+import {
+  syncHistoryWithStore,
+} from 'react-router-redux';
+import useScroll from 'react-router-scroll';
+
 import routes from './utilities/routes';
+import { configureHistory } from './configureHistory';
+import { selectLocationState } from './containers/Home/selectors';
 // import { getAdgroup } from './containers/Home/sagas';
 
-const initialState = {};
-const history =  createBrowserHistory();
-const store = configureStore(initialState, history);
+const browserHistory = configureHistory();
 
+const initialState = {};
+const store = configureStore(initialState, browserHistory);
+
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: selectLocationState(),
+});
+const rootRoute = routes(store);
 function App() {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <RenderRoutes routes={routes(store)} store={store} />
-      </ConnectedRouter>
+      <Router
+        history={history}
+        routes={rootRoute}
+        render={
+          // Scroll to top when going to a new page, imitating default browser
+          // behaviour
+          applyRouterMiddleware(useScroll())
+        }
+      />
     </Provider>
   );
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectSelectedCurrentShow } from '../Home/selectors';
 import { Link } from 'react-router';
 
-class ShowBreadcrumb extends Component {
+class SummaryBreadcrumb extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -12,10 +12,9 @@ class ShowBreadcrumb extends Component {
 
     render() {
         const { currentSelectedShow } = this.props;
-        const showName = currentSelectedShow && currentSelectedShow.name;
         const showId = currentSelectedShow && currentSelectedShow.id;
         return (
-            <Link to={`/shows/${showId}`}>{showName}</Link>
+            <Link to={`/shows/${showId}/summary`}>Summary</Link>
         );
     }
 }
@@ -30,4 +29,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowBreadcrumb);
+export default connect(mapStateToProps, mapDispatchToProps)(SummaryBreadcrumb);

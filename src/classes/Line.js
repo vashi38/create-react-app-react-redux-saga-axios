@@ -3,11 +3,16 @@ import Seat from './Seat';
 class Line {
     constructor(code, seats, price) {
         this._code = code;
+        this._price = price;
         this._seats = this.getListFromSeats(seats, price);
     }
 
     get code() {
         return this._code;
+    }
+
+    get price() {
+        return this._price;
     }
 
     get seats() {
@@ -46,6 +51,17 @@ class Line {
             return this._seats.filter(each => each.selected);
         } catch (e) {
             return [];
+        }
+    }
+
+    deSelectAllSeats() {
+        try {
+            return this._seats.map(each => {
+                each.selected = false;
+                return each;
+            });
+        } catch (e) {
+            console.log('Error', e);
         }
     }
 }

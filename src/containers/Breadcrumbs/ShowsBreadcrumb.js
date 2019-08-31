@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class ShowsBreadcrumb extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class ShowsBreadcrumb extends Component {
 
     render() {
         return (
-            <span>Shows</span>
+            <Link to={`/shows`}>Shows</Link>
         );
     }
 }

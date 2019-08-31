@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -27,11 +28,16 @@ class Home extends Component {
     }
 
     render() {
-        const { children } = this.props;
+        const { children, routes } = this.props;
         return (
             <div className={styles.container}>
-                <Breadcrumbs />
-                {children}
+                <div className={styles.appHeaderContainer}>
+                    <Breadcrumbs routes={routes} />
+                    <Link to={'/totalRevenue'} >Total Revenue</Link>
+                </div>
+                <div className={styles.routeComponentContainer}>
+                    {children}
+                </div>
             </div>
         )
     }

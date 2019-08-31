@@ -3,3 +3,16 @@
     align-items: center;
     overflow: visible;
 }
+
+.container {
+    position: relative;
+    color: gray;
+}
+
+.lineDescription {
+    position: absolute;
+    top: -8px;
+    left: 30px;
+    background: white;
+    padding: 0 10px;
+}

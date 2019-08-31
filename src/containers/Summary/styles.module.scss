@@ -3,11 +3,59 @@
 }
 
 .buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
     & > button {
-        float: right;
         padding: 10px;
-        width: 70px;
+        width: 140px;
         border-radius: 10px;
         margin-right: 10px;
+    }
+}
+
+.lineColumn {
+    min-width: 100px;
+    max-width: 80%;
+    padding: 10px 0px;
+    text-align: left;
+}
+
+.seatsColumn {
+    max-width: 80%;
+    min-width: 400px;
+    padding: 10px 0px;
+    text-align: left;
+}
+
+.countColumn {
+    max-width: 80%;
+    min-width: 100px;
+    padding: 10px 0px;
+    text-align: left;
+}
+
+.perSeatColumns {
+    max-width: 80%;
+    min-width: 100px;
+    padding: 10px 0px;
+    text-align: left;
+}
+
+.totalColumn {
+    max-width: 80%;
+    min-width: 100px;
+    padding: 10px 0px;
+    text-align: left;
+}
+
+.tableWrapper {
+    width: 100%;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #F0F0F0;
+    & > table {
+        margin-bottom: 30px;
     }
 }
