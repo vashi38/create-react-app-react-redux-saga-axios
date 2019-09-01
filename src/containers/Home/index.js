@@ -49,7 +49,7 @@ const mapStateToProps = createStructuredSelector({
     currentSelectedShowId: selectSelectedCurrentShowId(),
 })
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
     return {
         initializeState: (showsList) => {
             dispatch(initializeState(showsList));
